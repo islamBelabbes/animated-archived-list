@@ -5,13 +5,12 @@ const MessageItem = ({ message, handleClick }) => {
   return (
     <motion.div
       layout
-      className={cn("flex flex-col cursor-pointer", {
-        "rounded bg-cyan-500": message.isSelected,
+      className={cn("flex flex-col cursor-pointer p-2", {
+        "rounded bg-cyan-500 ": message.isSelected,
       })}
       onClick={handleClick}
-      initial={{ opacity: 0, fontWeight: 100 }}
+      initial={{ opacity: 0 }}
       animate={{
-        fontWeight: 700,
         opacity: 1,
         transition: {
           ease: "linear",

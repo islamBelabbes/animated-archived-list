@@ -9,13 +9,10 @@ import BlockUi from "../BlockUi";
 function SendMessageForm({ closeModal }) {
   const { mutateAsync, isPending } = useMutation({
     mutationFn: (data) => {
-      return axios.post(
-        `http://${process.env.NEXT_PUBLIC_SERVER_URL}/api/message`,
-        {
-          message: data.message,
-          sender: data.sender,
-        }
-      );
+      return axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/message`, {
+        message: data.message,
+        sender: data.sender,
+      });
     },
   });
 

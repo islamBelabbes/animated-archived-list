@@ -5,9 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const getMessages = async () => {
-  const url = new URL(
-    `http://${process.env.NEXT_PUBLIC_SERVER_URL}/api/message`
-  );
+  const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/message`);
   const response = await axios.get(url);
   return response.data.data;
 };

@@ -1,8 +1,9 @@
+"use client";
 import React, { useRef, useState } from "react";
-import { generateMessage } from "../utils/utils";
 import MessageList from "./MessageList";
 import TopBar from "./TopBar";
-function ArchivedList() {
+import { generateMessage } from "@/utils/utils";
+function Inbox() {
   const [data, setData] = useState([]);
   const archiveListRef = useRef();
   const handleAddMessage = () => {
@@ -34,4 +35,4 @@ function ArchivedList() {
   );
 }
 
-export default ArchivedList;
+export default Inbox;

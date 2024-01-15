@@ -1,7 +1,7 @@
 import Inbox from "@/components/Inbox/Inbox";
 import { getMessages } from "@/lib/db";
-
-export default async function Home() {
+export const revalidate = 0;
+export default async function page() {
   const messages = await getMessages({
     take: 8,
     skip: 0,

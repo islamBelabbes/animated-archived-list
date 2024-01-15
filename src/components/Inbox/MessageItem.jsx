@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
-import { cn } from "../utils/utils";
+import { cn } from "../../lib/utils";
 
-const MessageItem = ({ message, handleClick }) => {
+const MessageItem = ({ data, handleClick, isSelected }) => {
+  const { message, sender } = data;
   return (
     <motion.div
       layout
       className={cn("flex flex-col cursor-pointer p-2", {
-        "rounded bg-cyan-500 ": message.isSelected,
+        "rounded bg-cyan-500 ": isSelected,
       })}
       onClick={handleClick}
       initial={{ opacity: 0 }}
@@ -25,8 +26,8 @@ const MessageItem = ({ message, handleClick }) => {
         },
       }}
     >
-      <span className="font-bold">{message.content[0]}</span>
-      <span className="font-normal opacity-65">{message.content[1]}</span>
+      <span className="font-bold">{message}</span>
+      <span className="font-normal opacity-65">{sender}</span>
     </motion.div>
   );
 };

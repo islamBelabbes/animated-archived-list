@@ -19,3 +19,16 @@ export const generateMessage = () => {
 export const cn = (...args) => {
   return twMerge(clsx(args));
 };
+
+export const tryCatch = async (Promise) => {
+  try {
+    const data = await Promise;
+    return [data, null];
+  } catch (error) {
+    return [null, error];
+  }
+};
+
+export const isMessageSelected = ({ selectedMessages, targetMessageId }) => {
+  return selectedMessages.some((message) => message === targetMessageId);
+};

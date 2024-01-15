@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.primary_input {
+  @apply p-2 border border-gray-300 rounded;
+}
+.primary_button {
+  @apply text-white bg-[#272343] rounded p-2 disabled:opacity-15 disabled:cursor-not-allowed;
+}
+.app {
+  @apply flex items-center justify-center w-screen h-screen bg-slate-50;
+}
 /* hide scrollbar but allow scrolling */
 .box {
   -ms-overflow-style: none; /* for Internet Explorer, Edge */
@@ -11,4 +20,15 @@
 }
 .box::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
+}
+.overlay {
+  position: fixed; /* Sit on top of the page content */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  z-index: 999; /* Specify a stack order in case you're using a different order for other elements */
 }

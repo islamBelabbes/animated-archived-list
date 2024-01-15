@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import MessageItem from "./MessageItem";
 
-const MessageList = ({ data, handleClick }) => {
+const MessageList = ({ data, handleClick, selectedMessages }) => {
   if (!data.length > 0) {
     return (
       <span className="flex items-center justify-center h-full p-3 mt-[49px]">
@@ -16,8 +16,9 @@ const MessageList = ({ data, handleClick }) => {
         {data.map((message) => (
           <MessageItem
             key={message.id}
-            message={message}
+            data={message}
             handleClick={() => handleClick(message.id)}
+            isSelected={selectedMessages.includes(message.id)}
           />
         ))}
       </AnimatePresence>

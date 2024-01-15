@@ -1,9 +1,31 @@
-import Inbox from "@/components/Inbox";
+"use client";
 
-export default function Home() {
+import SendMessageForm from "@/components/SendMessageForm/SendMessageForm";
+import { AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { useState } from "react";
+
+function page() {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <main className="flex items-center justify-center w-screen h-screen bg-slate-50">
-      <Inbox />
-    </main>
+    <div className="app">
+      <AnimatePresence>
+        {isOpen && <SendMessageForm closeModal={() => setIsOpen(false)} />}
+      </AnimatePresence>
+
+      <div className="flex gap-3">
+        <div
+          className="cursor-pointer primary_button"
+          onClick={() => setIsOpen(true)}
+        >
+          Send Message
+        </div>
+        <Link className="cursor-pointer primary_button" href={"/dashboard"}>
+          Dashboard
+        </Link>
+      </div>
+    </div>
   );
 }
+
+export default page;

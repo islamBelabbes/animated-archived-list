@@ -22,7 +22,14 @@ function SendMessageForm({ closeModal }) {
     await toast.promise(mutateAsync({ sender, message }), {
       pending: "Promise is pending",
       success: "Message sent successfully 👌",
-      error: "Promise rejected 🤯",
+      error: {
+        render({ data }) {
+          if (data.response.status === 429) {
+            return "Too many requests. Please try again later.";
+          }
+          return "Something went wrong. Please try again later.";
+        },
+      },
     });
 
     // todo : trigger pusher event

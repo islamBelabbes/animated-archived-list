@@ -9,7 +9,7 @@ import {
 } from "@/lib/responseHelper";
 import { getMessages } from "@/lib/db";
 import { pusherServer } from "@/lib/pusher";
-import { ratelimit } from "@/lib/upStach";
+import { ratelimit } from "@/lib/upstach";
 
 export const GET = async (req) => {
   const url = new URL(req.url);

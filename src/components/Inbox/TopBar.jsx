@@ -4,7 +4,6 @@ const TopBar = ({ onAdd, onArchive }) => {
       <button onClick={onAdd}>Add</button>
       <button
         onClick={onArchive}
-        disabled
         className="disabled:cursor-not-allowed disabled:opacity-60"
       >
         Archive

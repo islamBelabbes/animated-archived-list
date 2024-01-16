@@ -5,15 +5,11 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
 import BlockUi from "../BlockUi";
+import { sendMessage } from "@/lib/api";
 
 function SendMessageForm({ closeModal }) {
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: (data) => {
-      return axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/message`, {
-        message: data.message,
-        sender: data.sender,
-      });
-    },
+    mutationFn: sendMessage,
   });
 
   const handleSubmit = async (e) => {

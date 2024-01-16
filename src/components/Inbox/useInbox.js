@@ -1,23 +1,27 @@
+import { archiveMessages, getMessages } from "@/lib/api";
 import { pusherClient } from "@/lib/pusher";
-import { isMessageSelected } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { isMessageSelected, tryCatch } from "@/lib/utils";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-
-const getMessages = async () => {
-  const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/message`);
-  const response = await axios.get(url);
-  return response.data.data;
-};
+import { toast } from "react-toastify";
 
 function useInbox(initialData) {
   const [selected, setSelected] = useState([]);
-
+  const queryClient = useQueryClient();
   const { data, refetch } = useQuery({
     queryKey: ["messages"],
-    queryFn: getMessages,
     refetchOnWindowFocus: false,
+    queryFn: getMessages,
     initialData: initialData,
+  });
+
+  const { mutateAsync } = useMutation({
+    mutationFn: ({ ids }) => archiveMessages(ids.join(",")),
+    onMutate: ({ ids }) => {
+      queryClient.setQueryData(["messages"], (old) => {
+        return old.filter((message) => !ids.includes(message.id));
+      });
+    },
   });
 
   const toggleSelected = (id) => {
@@ -32,9 +36,18 @@ function useInbox(initialData) {
     return setSelected((selected) => [...selected, id]);
   };
 
-  const handleArchive = () => {
-    const newData = data.filter((item) => !item.isSelected);
-    setData(newData);
+  const handleArchive = async () => {
+    if (!selected.length > 0)
+      return toast.error("please select messages to archive", {
+        toastId: "no-message-to-archive",
+        position: "top-center",
+      });
+    const [__, error] = await tryCatch(mutateAsync({ ids: selected }));
+    if (error) {
+      toast.error("something went wrong");
+    }
+
+    return refetch();
   };
 
   useEffect(() => {

@@ -18,6 +18,9 @@ export const GET = async (req) => {
   const query = {
     take: limit ? parseInt(limit) : 8,
     skip: page ? parseInt(page) : 0,
+    where: {
+      type: "Inbox",
+    },
   };
 
   const [data, error] = await tryCatch(getMessages(query));

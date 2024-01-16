@@ -5,7 +5,12 @@ export default async function page() {
   const messages = await getMessages({
     take: 8,
     skip: 0,
+    where: {
+      type: "Inbox",
+    },
   });
+
+  console.log(messages);
   return (
     <main className="app">
       <Inbox initialData={messages} />

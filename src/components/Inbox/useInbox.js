@@ -43,6 +43,9 @@ function useInbox(initialData) {
         position: "top-center",
       });
     const [__, error] = await tryCatch(mutateAsync({ ids: selected }));
+
+    setSelected([]);
+
     if (error) {
       toast.error("something went wrong");
     }

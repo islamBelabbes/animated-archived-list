@@ -9,8 +9,6 @@ export default async function page() {
       type: "Inbox",
     },
   });
-
-  console.log(messages);
   return (
     <main className="app">
       <Inbox initialData={messages} />

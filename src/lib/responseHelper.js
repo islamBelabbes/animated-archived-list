@@ -105,6 +105,12 @@ export const sendNoContent = () => {
   });
 };
 
+export const sendToManyRequests = () => {
+  return new Response("Too Many Requests", {
+    status: 429,
+  });
+};
+
 export const setHeadersForCORS = (req, next) => {
   Response.header("Access-Control-Allow-Origin", "*");
   Response.header(

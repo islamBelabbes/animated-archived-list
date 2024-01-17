@@ -16,7 +16,7 @@ function useInbox(initialData) {
   });
 
   const { mutateAsync } = useMutation({
-    mutationFn: ({ ids }) => archiveMessages(ids.join(",")),
+    mutationFn: ({ ids }) => archiveMessages(ids),
     onMutate: ({ ids }) => {
       queryClient.setQueryData(["messages"], (old) => {
         return old.filter((message) => !ids.includes(message.id));
@@ -42,6 +42,7 @@ function useInbox(initialData) {
         toastId: "no-message-to-archive",
         position: "top-center",
       });
+
     const [__, error] = await tryCatch(mutateAsync({ ids: selected }));
 
     setSelected([]);

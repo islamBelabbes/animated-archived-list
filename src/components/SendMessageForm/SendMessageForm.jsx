@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import SideModal from "../Modal/SideModal";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import { toast } from "react-toastify";
 import BlockUi from "../BlockUi";
 import { sendMessage } from "@/lib/api";
@@ -17,7 +16,6 @@ function SendMessageForm({ closeModal }) {
     mutationFn: sendMessage,
   });
 
-  console.log(errors);
   const handleSubmit = async (e) => {
     e.preventDefault();
 

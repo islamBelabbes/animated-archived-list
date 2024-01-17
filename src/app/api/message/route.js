@@ -64,13 +64,12 @@ export const POST = async (req) => {
 
 export const PUT = async (req) => {
   const { ids } = await req.json();
-  const idsArray = ids.split(",").map((id) => id);
 
   const [__, error] = await tryCatch(
     prisma.message.updateMany({
       where: {
         id: {
-          in: [...idsArray],
+          in: ids,
         },
       },
       data: {

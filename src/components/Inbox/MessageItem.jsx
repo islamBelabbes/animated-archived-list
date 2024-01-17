@@ -1,6 +1,23 @@
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
+const variants = {
+  animate: {
+    opacity: 1,
+    transition: {
+      ease: "linear",
+      opacity: { delay: 0.1 },
+    },
+  },
+  exit: {
+    hanging: 0,
+    opacity: 0,
+    transition: {
+      duration: 0.1,
+    },
+  },
+  transition: { duration: 0.5, ease: "easeInOut" },
+};
 const MessageItem = ({ data, handleClick, isSelected }) => {
   const { message, sender } = data;
   return (
@@ -10,22 +27,9 @@ const MessageItem = ({ data, handleClick, isSelected }) => {
         "rounded bg-cyan-500 ": isSelected,
       })}
       onClick={handleClick}
-      initial={false}
-      // initial={{ opacity: 0 }}
-      animate={{
-        opacity: 1,
-        transition: {
-          ease: "linear",
-          opacity: { delay: 0.1 },
-        },
-      }}
-      exit={{
-        hanging: 0,
-        opacity: 0,
-        transition: {
-          duration: 0.1,
-        },
-      }}
+      variants={variants}
+      animate="animate"
+      exit="exit"
     >
       <span className="font-bold">{message}</span>
       <span className="font-normal opacity-65">{sender}</span>

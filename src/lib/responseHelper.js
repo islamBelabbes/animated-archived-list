@@ -11,12 +11,13 @@ export const sendCreated = ({ message, data }) => {
   );
 };
 
-export const sendOk = ({ message, data }) => {
+export const sendOk = ({ message, data, ...other }) => {
   return Response.json(
     {
       success: true,
       message,
       data,
+      ...other,
     },
     {
       status: 200,

@@ -7,20 +7,34 @@ import {
   sendServerError,
   sendToManyRequests,
 } from "@/lib/responseHelper";
-import { getMessages } from "@/lib/db";
+import { countMessages, getMessages } from "@/lib/db";
 import { pusherServer } from "@/lib/pusher";
 import { ratelimit } from "@/lib/upstach";
 
 export const GET = async (req) => {
   const url = new URL(req.url);
-  const limit = url.searchParams.get("limit");
-  const page = url.searchParams.get("page");
+  const limit = +url.searchParams.get("limit") || 5;
+  const page = +url.searchParams.get("page") || 1;
+
   const query = {
-    take: limit ? parseInt(limit) : 8,
-    skip: page ? parseInt(page) : 0,
+    skip: (page - 1) * limit,
+    take: limit,
     where: {
       type: "Inbox",
     },
+  };
+
+  // pagination
+  const [countNext, countNextError] = await tryCatch(
+    countMessages({ ...query, skip: page * limit })
+  );
+
+  if (countNextError) return sendServerError();
+
+  const pagination = {
+    hasNext: countNext > 0,
+    limit,
+    page,
   };
 
   const [data, error] = await tryCatch(getMessages(query));
@@ -30,6 +44,7 @@ export const GET = async (req) => {
   return sendOk({
     data,
     message: "Messages fetched successfully",
+    pagination,
   });
 };
 

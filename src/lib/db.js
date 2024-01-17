@@ -15,3 +15,13 @@ export const getMessages = async (query) => {
 
   return data;
 };
+
+export const countMessages = async (query) => {
+  const [count, error] = await tryCatch(
+    prisma.message.count({
+      ...query,
+    })
+  );
+  if (error) throw error;
+  return count;
+};

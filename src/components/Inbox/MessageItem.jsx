@@ -10,7 +10,8 @@ const MessageItem = ({ data, handleClick, isSelected }) => {
         "rounded bg-cyan-500 ": isSelected,
       })}
       onClick={handleClick}
-      initial={{ opacity: 0 }}
+      initial={false}
+      // initial={{ opacity: 0 }}
       animate={{
         opacity: 1,
         transition: {

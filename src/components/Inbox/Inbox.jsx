@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MessageList from "./MessageList";
 import TopBar from "./TopBar";
 import useInbox from "./useInbox";

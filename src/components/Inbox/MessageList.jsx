@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
 import MessageItem from "./MessageItem";
-import { memo } from "react";
 
 const MessageList = ({ data, handleClick, selectedMessages, isLoading }) => {
   if (isLoading) {

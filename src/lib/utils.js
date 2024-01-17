@@ -28,7 +28,3 @@ export const tryCatch = async (Promise) => {
     return [null, error];
   }
 };
-
-export const isMessageSelected = ({ selectedMessages, targetMessageId }) => {
-  return selectedMessages.some((message) => message === targetMessageId);
-};

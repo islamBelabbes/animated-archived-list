@@ -1,6 +1,6 @@
 import { archiveMessages, getMessages } from "@/lib/api";
 import { pusherClient } from "@/lib/pusher";
-import { isMessageSelected, tryCatch } from "@/lib/utils";
+import { tryCatch } from "@/lib/utils";
 import {
   useInfiniteQuery,
   useMutation,
@@ -32,21 +32,19 @@ function useInbox() {
     mutationFn: ({ ids }) => archiveMessages(ids),
     onMutate: ({ ids }) => {
       queryClient.setQueryData(["messages"], (old) => {
-        const mapedData = old.pages.map((data) => {
+        const data = old.pages.map((data) => {
           return {
             ...data,
             data: data.data.filter((item) => !ids.includes(item.id)),
           };
         });
-        return { ...old, pages: mapedData };
+        return { ...old, pages: data };
       });
     },
   });
 
   const toggleSelected = (id) => {
-    if (
-      isMessageSelected({ selectedMessages: selected, targetMessageId: id })
-    ) {
+    if (selected.includes(id)) {
       return setSelected((selected) => {
         return selected.filter((item) => item !== id);
       });
@@ -67,7 +65,7 @@ function useInbox() {
     setSelected([]);
 
     if (error) {
-      toast.error("something went wrong");
+      toast.error("something went wrong archive aborted");
     }
     return refetch();
   };

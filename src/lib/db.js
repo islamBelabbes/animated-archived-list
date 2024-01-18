@@ -5,9 +5,6 @@ export const getMessages = async (query) => {
   const [data, error] = await tryCatch(
     prisma.message.findMany({
       ...query,
-      orderBy: {
-        createdAt: "desc",
-      },
     })
   );
 

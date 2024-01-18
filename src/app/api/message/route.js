@@ -22,6 +22,7 @@ export const GET = async (req) => {
     where: {
       type: "Inbox",
     },
+    orderBy: [{ createdAt: "desc" }, { id: "desc" }],
   };
 
   // pagination

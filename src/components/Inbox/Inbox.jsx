@@ -21,7 +21,7 @@ function Inbox() {
   } = useInbox();
 
   return (
-    <div className="w-[500px] bg-white rounded  h-[300px]  overflow-auto box flex flex-col">
+    <div className="sm:w-[500px] bg-white rounded  h-[300px]  overflow-auto box flex flex-col">
       <AnimatePresence>
         {isOpen && <SendMessageForm closeModal={() => setIsOpen(false)} />}
       </AnimatePresence>

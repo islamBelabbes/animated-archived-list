@@ -26,7 +26,11 @@ function Inbox() {
         {isOpen && <SendMessageForm closeModal={() => setIsOpen(false)} />}
       </AnimatePresence>
 
-      <TopBar onAdd={() => setIsOpen(true)} onArchive={handleArchive} />
+      <TopBar
+        onAdd={() => setIsOpen(true)}
+        onArchive={handleArchive}
+        disabled={{ archive: !selectedMessages.length > 0 }}
+      />
 
       <MessageList
         data={messages}
